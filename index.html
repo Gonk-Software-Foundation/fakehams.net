@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html style="height: 100vh; width: 100vw;">
+
+<head>
+    <title>FakeHam's Lidnet</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body style="background-image: url('/assets/xp.png');background-size: fill;">
+    <div style="display: table; top: 0; left: 0; width: 100%; height: 100%; position: absolute;">
+        <div style="display: table-cell; vertical-align: middle;">
+            <div class="window" style="margin: auto; min-width: 250px; width: fit-content;max-width:33vw" id="window">
+                <div class="title-bar" style="cursor: move;" id="windowheader">
+                    <div class="title-bar-text">
+                        FakeHam's Lidnet
+                    </div>
+                </div>
+                <div class="window-body">
+                    <section class="tabs" style="max-width: 500px">
+                        <menu role="tablist" aria-label="Net information">
+                            <button role="tab" aria-selected="true" aria-controls="What">What?</button>
+                            <button role="tab" aria-controls="Where">Where?</button>
+                            <button role="tab" aria-controls="Who">Who?</button>
+                        </menu>
+                        <!-- the tab content -->
+                        <article role="tabpanel" id="What">
+                            <p>
+                                The Fakeham Lidnet started as a joke, a chaotic display of nonsense between a few hams that enjoy DMR but don't take it too seriously. The first official directed Fakeham Lidnet was on May 2, 2019 and the net has been happening almost every week since.
+                                It is a laid back net, with no real purpose other than to be silly and poke fun at some ham radio stereotypes, and it's not uncommon for participants to enjoy a beverage (or three) during the course of the net. The companion
+                                to the Fakeham Lidnet is the #fakehams IRC channel on the Geekshed network, where most net participants will chat and berate net control.
+                            </p>
+                            <p>
+                                The Fakeham Lidnet is directed, with net control going through the list of checkins with several rounds of questions, and a pause for more checkins after every round. The net typically lasts 60-90 minutes. Common topics/questions for the net:
+                                <ul>
+                                    <li>What are you drinking?</li>
+                                    <li>What are you doing with radio this week?</li>
+                                    <li>What's your medical ailment?</li>
+                                    <li>What's ruining ham radio?</li>
+                                    <li>A weekly impromptu debate topic</li>
+                                    <li>Conspiracy theories</li>
+                                    <li>Repeater confesions (silly things you've heard on your local repeaters)</li>
+                                    <li>"Next Week's Question," a question asked by net control that net participants will answer the following week</li>
+                                    <li>Other questions sprinkled in</li>
+                                </ul>
+                                <p>The net is not taken seriously and the tone is apparent if you monitor the net for more than a few minutes. More lids are always welcome, and points are awarded for creativity*.</p>
+                                <p><i>* Everything is made up and the points don't matter.</i></p>
+                            </p>
+                        </article>
+                        <article role="tabpanel" hidden id="Where">
+                            <p>
+                                The Fakeham Lidnet is a digital voice net that takes place every Thursday at 9:30 PM EST on Brandmeister Talkgroup 98003 (Redditnet). You can also join via Echolink link W5RI-L, AllStarLink node 48224, or XLX216 D-Star module E.
+                            </p>
+                        </article>
+                        <article role="tabpanel" hidden id="Who">
+                            <p><strong>THE Lid Controller</strong> <br>
+                                <a href="https://kn3b.com">KN3B - Brad</a></p>
+
+                            <p><strong>Shitty Web Design</strong> <br>
+                                <a href="mailto:alex@2a03.party">K3UwU - Alex</a></p>
+
+
+                        </article>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery"></script>
+
+    <script>
+        const tabs = document.querySelectorAll("menu[role=tablist]");
+
+        for (let i = 0; i < tabs.length; i++) {
+            const tab = tabs[i];
+
+            const tabButtons = tab.querySelectorAll("menu[role=tablist] > button");
+
+            tabButtons.forEach((btn) =>
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    tabButtons.forEach((button) => {
+                        if (
+                            button.getAttribute("aria-controls") ===
+                            e.target.getAttribute("aria-controls")
+                        ) {
+                            button.setAttribute("aria-selected", true);
+                            openTab(e, tab);
+                        } else {
+                            button.setAttribute("aria-selected", false);
+                        }
+                    });
+                })
+            );
+        }
+
+        function openTab(event, tab) {
+            const articles = tab.parentNode.querySelectorAll('[role="tabpanel"]');
+            articles.forEach((p) => {
+                p.setAttribute("hidden", true);
+            });
+            const article = tab.parentNode.querySelector(
+                `[role="tabpanel"]#${event.target.getAttribute("aria-controls")}`
+            );
+            article.removeAttribute("hidden");
+        }
+    </script>
+</body>
+
+</html>
